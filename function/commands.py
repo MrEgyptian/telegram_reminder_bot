@@ -28,8 +28,7 @@ def fix_spelling(sentence):
     return sentence
 
 
-nltk.download('stopwords')
-
+nltk.data.path=["nltk-data"]
 
 def remove_stopwords(text):
     """
