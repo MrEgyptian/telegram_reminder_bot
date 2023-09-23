@@ -16,7 +16,7 @@ def read_json(filename):
             data = json.load(file)
         return data
     except FileNotFoundError:
-        return {}
+        return []
 
 def update_json(filename, data):
     """
@@ -93,8 +93,11 @@ def rm_reminder(index, user_id):
     reminders.pop(int(index))
     try:
         disabled = list_disabled(user_id)
+        print(disabled)
         disabled.remove(index)
     except ValueError:
+        pass
+    except AttributeError:
         pass
     update_json(f'database/{user_id}/{today}.json', disabled)
     update_json(f'database/{user_id}/reminders.json', reminders)
@@ -112,6 +115,7 @@ def disable_reminder(index, user_id):
     """
     today = datetime.datetime.now().strftime("%d-%m-%y")
     reminders = list_disabled(user_id)
+    print(reminders)
     reminders.append(index)
     update_json(f'database/{user_id}/{today}.json', reminders)
 
